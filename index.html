@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartaz de Divulgação Digital</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cardo&display=swap');
+        body {
+            font-family: 'Cardo', serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        h1 {
+            font-size: 2.32rem;
+            margin-bottom: 5px;
+            color: #003cff;
+        }
+        h1 span {
+            display: block;
+        }
+        .countdown-label {
+            font-size: 1rem;
+            color: #228B22;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+        .countdown {
+            width: 6.2cm;  /* Reduzido em 15% */
+            height: 1.3cm;  /* Reduzido em 15% */
+            background-color: #FFD700;
+            color: #228B22;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.81rem;  /* Reduzido em 15% */
+            font-weight: bold;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        img {
+            max-width: 82%;  /* Reduzido em 15% */
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .event-info {
+            font-size: 1.02rem;  /* Reduzido em 15% */
+            margin-top: 5px;
+            color: #000;
+        }
+        .event-info p {
+            margin-bottom: 1px;  /* Reduzido o espaçamento entre as linhas */
+        }
+        .links {
+            margin-top: 5px;  /* Espaçamento menor entre a informação do evento e os links */
+        }
+        .links a {
+            text-decoration: none;
+            font-size: 13.0px;  /* Reduzido em 15% */
+            padding: 8px 18px;  /* Reduzido um pouco o espaçamento */
+            margin: 0 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .local {
+            background-color: #FFD700;
+            color: black;
+        }
+        .inscricao {
+            background-color: #228B22;
+            color: white;
+            animation: blink 1s infinite alternate;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        footer {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #555;
+        }
+        .audio-container {
+            margin-top: 10px;
+        }
+        .designer {
+            font-size: 12px;
+            font-style: italic;
+            font-family: 'Cardo', serif;
+            color: #555;
+            margin-top: 5px;
+        }
+    </style>
+    <script>
+        function updateCountdown() {
+            const eventDate = new Date("September 20, 2025 11:00:00").getTime();
+            setInterval(() => {
+                const now = new Date().getTime();
+                const timeLeft = eventDate - now;
+                
+                if (timeLeft <= 0) {
+                    document.getElementById("countdown").innerHTML = "Contagem regressiva encerrada";
+                    document.getElementById("countdown").style.animation = "blink 1s infinite alternate";
+                    return;
+                }
+                
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                
+                document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            }, 1000);
+        }
+        
+        function playAudio() {
+            const audio = document.getElementById("audio");
+            audio.play().catch(error => console.log("Autoplay bloqueado pelo navegador."));
+        }
+        
+        window.onload = function() {
+            updateCountdown();
+            setTimeout(playAudio, 1000);
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>II Encontro de Oficiais <span>Especialistas</span></h1>
+        <div class="countdown-label">Contagem regressiva para o evento:</div>
+        <div class="countdown" id="countdown">Carregando...</div>
+        <img src="logo.jpg" alt="Logo da Organização">
+        <div class="event-info">
+            <p><strong>Dia:</strong> 20 de setembro de 2025</p>
+            <p><strong>Horário:</strong> 11:00 horas de Brasília</p>
+            <p><strong>Local:</strong> Refeitório do DCTA</p>
+        </div>
+        <div class="links">
+            <a href="https://maps.app.goo.gl/D7ebLmDTpkBC8SJd6" class="local" target="_blank">LOCAL</a>
+            <a href="https://bit.ly/InscricaoOfEspecialistasSJC2025" class="inscricao" target="_blank">INSCRIÇÃO</a>
+        </div>
+        <div class="audio-container">
+            <audio id="audio" autoplay controls>
+                <source src="Especialista da Aeronáutica.mp3" type="audio/mpeg">
+                Seu navegador não suporta a reprodução de áudio.
+            </audio>
+        </div>
+        <footer>
+            &copy; 2025 - Todos os direitos reservados.
+            <div class="designer">designed by Cel R1 Cáceres</div>
+        </footer>
+    </div>
+</body>
+</html>
